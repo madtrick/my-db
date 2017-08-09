@@ -8,6 +8,7 @@
     },
     "rules": {
       "space-before-function-paren": ["error", "always"],
-      "max-len": ["error", 120]
+      "max-len": ["error", 120],
+      "no-console": "off"
     }
 }

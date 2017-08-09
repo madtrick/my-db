@@ -4,18 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test-unit": "_mocha 'test/unit/**/*-test.js'"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "csv": "^1.1.0",
+    "bluebird": "^3.4.7",
+    "cli-table": "^0.3.1",
+    "csv-parse": "^1.1.7",
+    "csv-stringify": "^1.0.4",
+    "inquirer": "^2.0.0",
     "json-query": "^2.2.0",
-    "lodash": "^4.17.2"
+    "lodash": "^4.17.2",
+    "yasjql": "github:madtrick/yasjql"
   },
   "devDependencies": {
     "eslint": "^3.12.0",
     "eslint-config-airbnb-base": "^10.0.1",
-    "eslint-plugin-import": "^2.2.0"
+    "eslint-plugin-import": "^2.2.0",
+    "chai": "^3.4.0",
+    "mocha": "^2.3.3",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0",
+    "dirty-chai": "^1.2.2"
   }
 }
