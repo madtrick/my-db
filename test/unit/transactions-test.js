@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const Transactions = require('../../lib/transactions');
 
 const chai = require('../helper');
@@ -10,13 +11,21 @@ describe('Transactions', function () {
   describe('.fromCSV', function () {
     it('initializes the transactions from a CSV collection', function () {
       const csv = [
-        'Category;Amount;Date',
-        'Foo;-14.00;Dec 9, 2016'
+        'Category;Amount',
+        'Foo;-14.00'
       ].join('\n');
 
-      const transactions = Transactions.fromCSV(csv);
+      const adapter = {
+        adapt: (item) => {
+          item.Amount = _.toNumber(item.Amount);
 
-      expect(transactions.all()).to.eql([{ Category: 'Foo', Amount: -14.00, Date: new Date('9 Dec, 2016') }]);
+          return item;
+        }
+      };
+
+      const transactions = Transactions.fromCSV(csv, adapter);
+
+      expect(transactions.all()).to.eql([{ Category: 'Foo', Amount: -14.00 }]);
     });
   });
 });
