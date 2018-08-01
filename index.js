@@ -11,14 +11,12 @@ const Transactions = require('./lib/transactions');
 
 const co = Bluebird.coroutine;
 
-const queries = require('./queries');
-
 const argv = yargs
   .option('source', {
     alias: 's',
     describe: 'Pick a source for the transactions',
     demandOption: true,
-    choices: ['db', 'dkb']
+    choices: ['db', 'dkb'],
   }).argv;
 
 function run (t, query) {
@@ -65,15 +63,6 @@ co(function* main () {
   const csvData = fs.readFileSync(`./transactions/${transactionsSource}/${fileChoice.name}`);
   const transactions = Transactions.fromCSV(csvData.toString(), ADAPTERS[transactionsSource]);
 
-  const queryChoices = queries.map((query, index) => ({ name: query.title, value: index }));
-  const questions = [
-    { type: 'list', name: 'queryIndex', message: 'message', choices: queryChoices },
-  ];
-
-  const queryChoice = yield inquirer.prompt(questions);
-  const query = queries[queryChoice.queryIndex];
-
-  // console.log(transactions.items);
-
+  const query = {}; // placeholder to keep the linter happy
   run(transactions.items, query);
 })();
