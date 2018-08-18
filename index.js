@@ -39,14 +39,16 @@ function run (items, query) {
 
 const DBAdapter = require('./lib/adapters/db');
 const DKBAdapter = require('./lib/adapters/dkb');
+const INGDibaAdapter = require('./lib/adapters/ing-diba');
 
 const ADAPTERS = {
   db: DBAdapter,
   dkb: DKBAdapter,
+  'ing-diba': INGDibaAdapter,
 };
 
 function main () {
-  const transactionsSources = argv.source || ['db', 'dkb'];
+  const transactionsSources = argv.source || ['db', 'dkb', 'ing-diba'];
 
   const allTransactions = _.flatten(transactionsSources.map((transactionsSource) => {
     const csvs = fs.readdirSync(`./transactions/${transactionsSource}`);
@@ -64,8 +66,8 @@ function main () {
 
   const dedupedTransactions = dedupTransactions(allTransactions);
 
-  const beginningMonth = new Date('2018-05-01');
-  const endMonth = new Date('2018-05-31');
+  const beginningMonth = new Date('2018-07-01');
+  const endMonth = new Date('2018-07-31');
 
   const queries = [
     {
@@ -88,6 +90,16 @@ function main () {
           Counterparty: { match: /PRIMARK/ },
         },
         group: 'Counterparty',
+        select: { sum: 'Amount' },
+      },
+    },
+    {
+      title: 'Ingresos',
+      query: {
+        filter: {
+          Amount: { gt: 0 },
+          Date: { gt: beginningMonth, lt: endMonth },
+        },
         select: { sum: 'Amount' },
       },
     },
