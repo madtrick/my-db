@@ -13,6 +13,8 @@
     "cli-table": "^0.3.1",
     "csv-parse": "^1.1.7",
     "csv-stringify": "^1.0.4",
+    "detect-character-encoding": "^0.6.0",
+    "iconv-lite": "^0.4.24",
     "inquirer": "^2.0.0",
     "json-query": "^2.2.0",
     "lodash": "^4.17.2",
