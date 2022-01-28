@@ -41,7 +41,6 @@ describe('Adapters', () => {
         Date: 'Sep 1, 2017',
         Counterparty: 'acme',
         Description: 'tnt',
-        Category: 'weapons',
         Account: '1234',
         Bank: 'Acme Bank',
         Product: 'Girokonto',
@@ -53,7 +52,6 @@ describe('Adapters', () => {
       expect(transformed.Date).to.eql(new Date('Sep 1, 2017'));
       expect(transformed.Counterparty).to.eql('acme');
       expect(transformed.Description).to.eql('tnt');
-      expect(transformed.Category).to.eql('weapons');
       expect(transformed.Amount).to.eql(123);
     });
   });
